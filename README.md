@@ -104,10 +104,10 @@ t3_act8_eq06/
 
 ## Capturas del sistema
 
-![alt text](image.png)
+![alt text](img/image.png)
 
-![alt text](image-1.png)
+![alt text](img/image-1.png)
 
-![alt text](image-2.png)
+![alt text](img/image-2.png)
 
-![alt text](image-3.png)
+![alt text](img/image-3.png)
