@@ -2,13 +2,13 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import DataTable from '../components/DataTable';
 
-export default function Dashboard({ user, onLogout }) {
+export default function Dashboard({ user, onLogout, currentView, onNavigate }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', fontFamily: "'Inter', sans-serif", backgroundColor: '#f4f5f7' }}>
       <Navbar user={user} onLogout={onLogout} />
       
       <div style={{ display: 'flex', flex: 1 }}>
-        <Sidebar />
+        <Sidebar currentView={currentView} onNavigate={onNavigate} />
         
        
         <main style={{ flex: 1, padding: '2rem 3rem', overflowY: 'auto' }}>

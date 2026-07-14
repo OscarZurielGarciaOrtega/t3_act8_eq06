@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Favorites from './pages/Favorites'; 
 
 export default function App() {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
+
+ 
+  const [currentView, setCurrentView] = useState('rutas');
 
   const handleLoginSuccess = (userData) => {
     localStorage.setItem('user', JSON.stringify(userData));
@@ -18,11 +22,30 @@ export default function App() {
     setUser(null);
   };
 
-  // Si no está logueado, protegemos el sistema y mostramos solo el Login
+  
   if (!user) {
     return <Login onLoginSuccess={handleLoginSuccess} />;
   }
 
-  // Si ya inició sesión, mostramos todo el sistema
-  return <Dashboard user={user} onLogout={handleLogout} />;
+  
+  if (currentView === 'favoritos') {
+    return (
+      <Favorites 
+        user={user} 
+        onLogout={handleLogout} 
+        currentView={currentView} 
+        onNavigate={setCurrentView} 
+      />
+    );
+  }
+
+  
+  return (
+    <Dashboard 
+      user={user} 
+      onLogout={handleLogout} 
+      currentView={currentView} 
+      onNavigate={setCurrentView} 
+    />
+  );
 }

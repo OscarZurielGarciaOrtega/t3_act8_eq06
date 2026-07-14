@@ -1,10 +1,10 @@
-export default function Sidebar() {
+export default function Sidebar({ currentView = 'rutas', onNavigate }) {
   const opciones = [
-    { nombre: 'Nueva ruta', icono: '🗺️', activo: true },
-    { nombre: 'Historial', icono: '🕒', activo: false },
-    { nombre: 'Favoritos', icono: '⭐', activo: false },
-    { nombre: 'Buscar', icono: '🔍', activo: false },
-    { nombre: 'Ajustes', icono: '⚙️', activo: false },
+    { id: 'rutas', nombre: 'Rutas recientes', icono: '🗺️' },
+    { id: 'historial', nombre: 'Historial', icono: '🕒' },
+    { id: 'favoritos', nombre: 'Favoritos', icono: '⭐' },
+    { id: 'buscar', nombre: 'Buscar', icono: '🔍' },
+    { id: 'ajustes', nombre: 'Ajustes', icono: '⚙️' },
   ];
 
   return (
@@ -17,29 +17,37 @@ export default function Sidebar() {
       fontFamily: "'Inter', sans-serif"
     }}>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-        {opciones.map((opcion, index) => (
-          <li key={index} style={{ marginBottom: '0.4rem' }}>
-            <a 
-              href={`#${opcion.nombre.toLowerCase()}`} 
-              onClick={(e) => e.preventDefault()}
-              style={{ 
-                display: 'flex', 
-                alignItems: 'center',
-                gap: '0.8rem',
-                padding: '0.75rem 1rem', 
-                borderRadius: '8px', 
-                textDecoration: 'none', 
-                color: opcion.activo ? '#008f39' : '#4a5568', 
-                backgroundColor: opcion.activo ? '#e8f5e9' : 'transparent', 
-                fontWeight: opcion.activo ? '700' : '500',
-                fontSize: '0.95rem'
-              }}
-            >
-              <span>{opcion.icono}</span>
-              <span>{opcion.nombre}</span>
-            </a>
-          </li>
-        ))}
+        {opciones.map((opcion) => {
+          const activo = currentView === opcion.id;
+          return (
+            <li key={opcion.id} style={{ marginBottom: '0.4rem' }}>
+              <a 
+                href={`#${opcion.id}`} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  // Si tiene función de navegación y hacen clic, cambiamos de pantalla
+                  if (onNavigate) onNavigate(opcion.id);
+                }}
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center',
+                  gap: '0.8rem',
+                  padding: '0.75rem 1rem', 
+                  borderRadius: '8px', 
+                  textDecoration: 'none', 
+                  color: activo ? '#008f39' : '#4a5568', 
+                  backgroundColor: activo ? '#e8f5e9' : 'transparent', 
+                  fontWeight: activo ? '700' : '500',
+                  fontSize: '0.95rem',
+                  cursor: 'pointer'
+                }}
+              >
+                <span>{opcion.icono}</span>
+                <span>{opcion.nombre}</span>
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </aside>
   );
