@@ -53,3 +53,45 @@ export const deleteProduct = async (id) => {
   });
   return await response.json();
 };
+
+
+// Obtener productos con paginación
+export async function getProducts(limit = 10, skip = 0) {
+  const response = await fetch(`${BASE_URL}/products?limit=${limit}&skip=${skip}`);
+  if (!response.ok) {
+    throw new Error("Error al obtener los productos");
+  }
+  const data = await response.json();
+  return data; // data.products, data.total, data.limit, data.skip
+}
+
+// Obtener categorías disponibles (para el filtro)
+export async function getCategories() {
+  const response = await fetch(`${BASE_URL}/products/categories`);
+  if (!response.ok) {
+    throw new Error("Error al obtener las categorías");
+  }
+  const data = await response.json();
+  return data;
+}
+
+// Buscar productos por texto
+export async function searchProducts(query, limit = 10, skip = 0) {
+  const response = await fetch(`${BASE_URL}/products/search?q=${query}&limit=${limit}&skip=${skip}`);
+  if (!response.ok) {
+    throw new Error("Error al buscar productos");
+  }
+  const data = await response.json();
+  return data;
+}
+
+// Filtrar por categoría
+export async function getProductsByCategory(category, limit = 10, skip = 0) {
+  const response = await fetch(`${BASE_URL}/products/category/${category}?limit=${limit}&skip=${skip}`);
+  if (!response.ok) {
+    throw new Error("Error al filtrar por categoría");
+  }
+  const data = await response.json();
+  return data;
+}
+
